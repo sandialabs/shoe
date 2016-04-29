@@ -1,0 +1,356 @@
+#
+# Copyright 2012 Sandia Corporation.
+# Under the terms of Contract DE-AC04-94AL85000, there is a non-exclusive
+# license for use of this work by or on behalf of the
+# U.S. Government. Redistribution and use in source and binary forms, with
+# or without modification, are permitted provided that this Notice and any
+# statement of authorship are reproduced on all copies.
+#
+# ===========================================================================================
+(Point,*,*)
+	EmbeddingDimension           : 0
+	NumberOfPoints               : 1
+	NumberOfDofNodes             : 0
+	NumberOfFaces                : 0
+	NumberOfEdges                : 0
+	NumberOfEdgesPerFace         : { 0, 0, 0, 0, 0, 0 }
+	NumberOfBoundaryFacets       : 0
+	CornerParameterCoords        : { }
+	CellSimplices                : { 0 }
+  NumberOfCellSimplices        : 1
+	EdgeCornerNodes              : { }
+  FaceCornerNodes              : { }
+	EdgesOfFaces                 : { }
+
+	ParametricCenter             : { 0., 0., 0. }
+
+	Description                  : "Point"
+
+	EvaluateShapeFunctions       : vtkShoeElemPoint::EvaluateShapeFunctionPoint
+	GetNumberOfShapeFunctions    : vtkShoeElemGeneric::OneMode
+	GetFieldPolynomial           : 0
+	GetNumberOfEdgeModesPerNode  : vtkShoeElemGeneric::ZeroModesPerNode
+	GetNumberOfFaceModesPerNode  : vtkShoeElemGeneric::ZeroModesPerNode
+	GetNumberOfVolumeModesPerNode: vtkShoeElemGeneric::ZeroModes
+	GetPermutedEdgeSigns         : vtkShoeElemHexahedron::GetPermutedEdgeSignsLeg /* could be anything */
+	GetPermutedFaceIndices       : vtkShoeElemHexahedron::GetPermutedFaceIndicesPLeg /* could be anything */
+# ===========================================================================================
+(Curve,*,*)
+	EmbeddingDimension           : 1
+	NumberOfPoints               : 2
+	NumberOfDofNodes             : 1
+	NumberOfFaces                : 0
+	NumberOfEdges                : 0
+	NumberOfBoundaryFacets       : 2
+	CornerParameterCoords        : { { -1. }, {  1. } }
+	CellSimplices                : { 0, 1 }
+  NumberOfCellSimplices        : 1
+	NumberOfEdgesPerFace         : { 0, 0, 0, 0, 0, 0 }
+	EdgeCornerNodes              : { {0, 1} }
+  FaceCornerNodes              : { }
+	EdgesOfFaces                 : { }
+
+	ParametricCenter             : { 0., 0., 0. }
+
+	GetNumberOfShapeFunctions    : vtkShoeElemCurve::GetNumberOfShapeFunctions
+	GetNumberOfEdgeModesPerNode  : vtkShoeElemCurve::GetNumberOfEdgeModesPerNode
+	GetNumberOfFaceModesPerNode  : vtkShoeElemGeneric::ZeroModesPerNode
+	GetNumberOfVolumeModesPerNode: vtkShoeElemGeneric::ZeroModes
+
+(Curve,Lagrange,Tensor)
+	Description                  : "Curve (Lagrange)"
+	EvaluateShapeFunctions       : vtkShoeElemCurve::EvaluateShapeFunctionsTensorLagrange
+	EvaluateShapeFuncDerivatives : vtkShoeElemCurve::EvaluateShapeFunctionDerivativesTensorLagrange
+	GetPermutedEdgeSigns         : vtkShoeElemCurve::GetPermutedEdgeSigns
+
+(Curve,Legendre,MaxTotalOrder)
+	Description                  : "Curve (Legendre,S^p)"
+	EvaluateShapeFunctions       : vtkShoeElemCurve::EvaluateShapeFunctionsMaxTotalOrderLegendre
+	EvaluateShapeFuncDerivatives : vtkShoeElemCurve::EvaluateShapeFunctionDerivativesMaxTotalOrderLegendre
+	GetPermutedEdgeSigns         : vtkShoeElemCurve::GetPermutedEdgeSigns
+	GetFieldPolynomial           : vtkShoeElemCurve::GetPolynomialMaxTotalOrderLegendre
+
+(Curve,Legendre,TruncatedTotalOrder)
+	Description                  : "Curve (Legendre,S^ppq)"
+
+# ===========================================================================================
+(Rod,*,*)
+	EmbeddingDimension           : 1
+	NumberOfPoints               : 2
+	NumberOfDofNodes             : 1
+	NumberOfFaces                : 0
+	NumberOfEdges                : 0
+	NumberOfBoundaryFacets       : 2
+	CornerParameterCoords        : { { -1. }, {  1. } }
+	CellSimplices                : { 0, 1 }
+  NumberOfCellSimplices        : 1
+	NumberOfEdgesPerFace         : { 0, 0, 0, 0, 0, 0 }
+	EdgeCornerNodes              : { {0, 1} }
+  FaceCornerNodes              : { }
+	EdgesOfFaces                 : { }
+
+	ParametricCenter             : { 0., 0., 0. }
+
+	GetNumberOfFaceModesPerNode  : vtkShoeElemGeneric::ZeroModesPerNode
+	GetNumberOfVolumeModesPerNode: vtkShoeElemGeneric::ZeroModes
+
+	Description                  : "Rod (S^p)"
+
+# ===========================================================================================
+(Tube,*,*)
+	EmbeddingDimension           : 1
+	NumberOfPoints               : 2
+	NumberOfDofNodes             : 1
+	NumberOfFaces                : 0
+	NumberOfEdges                : 0
+	NumberOfBoundaryFacets       : 2
+	CornerParameterCoords        : { { -1. }, {  1. } }
+	CellSimplices                : { 0, 1 }
+  NumberOfCellSimplices        : 1
+	NumberOfEdgesPerFace         : { 0, 0, 0, 0, 0, 0 }
+	EdgeCornerNodes              : { {0, 1} }
+  FaceCornerNodes              : { }
+	EdgesOfFaces                 : { }
+
+	ParametricCenter             : { 0., 0., 0. }
+
+	GetNumberOfFaceModesPerNode  : vtkShoeElemGeneric::ZeroModesPerNode
+	GetNumberOfVolumeModesPerNode: vtkShoeElemGeneric::ZeroModes
+
+	Description                  : "Tube (S^p)"
+
+# ===========================================================================================
+(Triangle,*,*)
+	EmbeddingDimension           : 2
+	NumberOfPoints               : 3
+	NumberOfDofNodes             : 4
+	NumberOfFaces                : 0
+	NumberOfEdges                : 3
+	NumberOfBoundaryFacets       : 6
+	CornerParameterCoords        : { { -1., 0. }, {  1., 0. }, {  0., sqrt(3.) } }
+	CellSimplices                : { 0, 1, 2 }
+  NumberOfCellSimplices        : 1
+	NumberOfEdgesPerFace         : { 3, 0, 0, 0, 0, 0 }
+	EdgeCornerNodes              : { {0, 1}, {1, 2}, {2, 0} }
+  FaceCornerNodes              : { {0, 1, 2} }
+	EdgesOfFaces                 : { {0, 1, 2} }
+
+	ParametricCenter             : { 0., 0., 0. }
+
+	GetNumberOfVolumeModesPerNode: vtkShoeElemGeneric::ZeroModes
+
+	Description                  : "Triangle (S^p)"
+	EvaluateShapeFunctions       : vtkShoeElemTriangle::EvaluateShapeFunctionsTriangleMaxTotalOrder
+	EvaluateShapeFuncDerivatives : vtkShoeElemTriangle::EvaluateShapeFunctionDerivativesTriangleMaxTotalOrder
+
+# ===========================================================================================
+(Quadrilateral,*,*)
+	EmbeddingDimension           : 2
+	NumberOfPoints               : 4
+	NumberOfDofNodes             : 5
+	NumberOfFaces                : 0
+	NumberOfEdges                : 4
+	NumberOfBoundaryFacets       : 8
+	CornerParameterCoords        : { { -1., -1. }, {  1., -1. }, {  1.,  1. }, { -1.,  1. } }
+	CellSimplices                : { 0, 1, 2, 0, 1, 3 }
+  NumberOfCellSimplices        : 2
+	NumberOfEdgesPerFace         : { 4, 0, 0, 0, 0, 0 }
+	EdgeCornerNodes              : { {0, 1}, {1, 2}, {3, 2}, {0, 3} }
+  FaceCornerNodes              : { {0, 1, 2, 3} }
+	EdgesOfFaces                 : { {0, 1, 2, 3} }
+
+	ParametricCenter             : { 0., 0., 0. }
+
+	GetNumberOfVolumeModesPerNode: vtkShoeElemGeneric::ZeroModes
+
+	Description                  : "Quadrilateral (S^p)"
+	GetBoundaryEdge              : vtkShoeElemQuadrilateral::GetBoundaryEdge
+#	GetBoundaryFace              : vtkShoeElemQuadrilateral::GetBoundaryFace
+#	FaceNodePermutation          : vtkShoeElemHexahedron::FaceNodePermutation
+	EvaluateNormalOnFace         : vtkShoeElemQuadrilateral::EvaluateNormalOnFace
+
+(Quadrilateral,Lagrange,Tensor)
+	EvaluateShapeFunctions       : vtkShoeElemQuadrilateral::EvaluateShapeFunctionsTensorLagrange
+	EvaluateShapeFuncDerivatives : vtkShoeElemQuadrilateral::EvaluateShapeFunctionDerivativesTensorLagrange
+	GetNumberOfShapeFunctions    : vtkShoeElemQuadrilateral::GetNumberOfShapeFunctionsTensorLagrange
+#	GetFieldPolynomial           : vtkShoeElemQuadrilateral::GetPolynomialTensorLagrange
+	GetPermutedEdgeSigns         : vtkShoeElemQuadrilateral::GetPermutedEdgeSignsTensorLagrange
+	GetPermutedFaceIndices       : vtkShoeElemQuadrilateral::GetPermutedFaceIndicesTensorLagrange
+
+(Quadrilateral,Legendre,MaxTotalOrder)
+	EvaluateShapeFunctions       : vtkShoeElemQuadrilateral::EvaluateShapeFunctionsMaxTotalOrderLegendre
+	EvaluateShapeFuncDerivatives : vtkShoeElemQuadrilateral::EvaluateShapeFunctionDerivativesMaxTotalOrderLegendre
+	GetNumberOfShapeFunctions    : vtkShoeElemQuadrilateral::GetNumberOfShapeFunctionsMaxTotalOrderLegendre
+	GetFieldPolynomial           : vtkShoeElemQuadrilateral::GetPolynomialMaxTotalOrderLegendre
+#	GetNumberOfEdgeModesPerNode  : vtkShoeElemGeneric::GetNumberOfEdgeModesPerNodePLeg
+#	GetNumberOfFaceModesPerNode  : vtkShoeElemHexahedron::GetNumberOfFaceModesPerNodePLeg
+#	GetNumberOfVolumeModesPerNode: vtkShoeElemHexahedron::GetNumberOfVolumeModesPerNodePLeg
+	GetPermutedEdgeSigns         : vtkShoeElemQuadrilateral::GetPermutedEdgeSignsLegendre
+	GetPermutedFaceIndices       : vtkShoeElemQuadrilateral::GetPermutedFaceIndicesPLegendre
+	GetCellCriticalPoints        : vtkShoeElemQuadrilateral::GetCriticalPoints
+	DoCriticalPointsExist        : vtkShoeElemQuadrilateral::DoCriticalPointsExist
+	GetPermutedCriticalPoints    : vtkShoeElemQuadrilateral::GetPermutedCriticalPoints
+
+
+# ===========================================================================================
+(TriangleShell,*,*)
+	EmbeddingDimension           : 2
+	NumberOfPoints               : 3
+	NumberOfDofNodes             : 4
+	NumberOfFaces                : 0
+	NumberOfEdges                : 3
+	NumberOfBoundaryFacets       : 6
+	CornerParameterCoords        : { { -1., 0. }, {  1., 0. }, {  0., sqrt(3.) } }
+	CellSimplices                : { 0, 1, 2 }
+  NumberOfCellSimplices        : 1
+	NumberOfEdgesPerFace         : { 3, 0, 0, 0, 0, 0 }
+	EdgeCornerNodes              : { {0, 1}, {1, 2}, {2, 0} }
+  FaceCornerNodes              : { {0, 1, 2} }
+	EdgesOfFaces                 : { {0, 1, 2} }
+
+	ParametricCenter             : { 0., 0., 0. }
+
+	GetNumberOfVolumeModesPerNode: vtkShoeElemGeneric::ZeroModes
+
+	Description                  : "Triangle Shell (S^p)"
+
+# ===========================================================================================
+(QuadrilateralShell,*,*)
+	EmbeddingDimension           : 2
+	NumberOfPoints               : 4
+	NumberOfDofNodes             : 5
+	NumberOfFaces                : 0
+	NumberOfEdges                : 4
+	NumberOfBoundaryFacets       : 8
+	CornerParameterCoords        : { { -1., -1. }, {  1., -1. }, {  1.,  1. }, { -1.,  1. } }
+	CellSimplices                : { 0, 1, 2, 0, 1, 3 }
+  NumberOfCellSimplices        : 2
+	NumberOfEdgesPerFace         : { 4, 0, 0, 0, 0, 0 }
+	EdgeCornerNodes              : { {0, 1}, {1, 2}, {3, 2}, {0, 3} }
+  FaceCornerNodes              : { {0, 1, 2, 3} }
+	EdgesOfFaces                 : { {0, 1, 2, 3} }
+
+	ParametricCenter             : { 0., 0., 0. }
+
+	GetNumberOfVolumeModesPerNode: vtkShoeElemGeneric::ZeroModes
+
+	Description                  : "Quadrilateral Shell (S^p)"
+
+# ===========================================================================================
+(Tetrahedron,*,*)
+	EmbeddingDimension           : 3
+	NumberOfPoints               : 4
+	NumberOfDofNodes             : 11
+	NumberOfFaces                : 4
+	NumberOfEdges                : 6
+	NumberOfBoundaryFacets       : 14
+	CornerParameterCoords        : { { -1., 0., 0. }, { 1., 0., 0. }, { 0., sqrt(3.), 0.}, { 0., 1./sqrt(3.), 2*sqrt(2./3.) } }
+	CellSimplices                : { 0, 1, 2, 3 }
+  NumberOfCellSimplices        : 1
+	NumberOfEdgesPerFace         : { 3, 3, 3, 3, 0, 0 }
+	EdgeCornerNodes              : { {0, 1}, {1, 2}, {2, 0}, {0, 3}, {1, 3}, {2, 3} }
+  FaceCornerNodes              : { {1, 3, 2}, {2, 3, 0}, {0, 3, 1}, {0, 1, 2} }
+	EdgesOfFaces                 : { {4, 5, 1}, {5, 3, 2}, {3, 4, 0}, {0, 1, 2} }
+
+	#ParametricCenter             : { 0.15625, 0.48713928962874670, 0.15309310892394862 } /* {5/32, 9*sqrt(3)/32, sqrt(3/8)/4} */
+	ParametricCenter             : { 5./32, 9.*sqrt(3.)/32, sqrt(3./8)/4 }
+
+	Description                  : "Tetrahedron (S^p)"
+
+	FaceNodePermutation          : vtkShoeElemTetrahedron::FaceNodePermutation
+	ConcatenateFacePermutations  : vtkShoeElemTetrahedron::ConcatenateFacePermutations
+	EvaluateNormalOnFace         : vtkShoeElemTetrahedron::EvaluateNormalOnFace
+
+(Tetrahedron,Legendre,MaxTotalOrder)
+	EvaluateShapeFunctions       : vtkShoeElemTetrahedron::EvaluateShapeFunctionsMaxTotalOrder
+	EvaluateShapeFuncDerivatives : vtkShoeElemTetrahedron::EvaluateShapeFunctionDerivativesMaxTotalOrder
+	GetPermutedEdgeSigns         : vtkShoeElemTetrahedron::GetPermutedEdgeSignsPLeg
+	GetPermutedFaceIndices       : vtkShoeElemTetrahedron::GetPermutedFaceIndicesPLeg
+	GetNumberOfShapeFunctions    : vtkShoeElemTetrahedron::GetNumberOfShapeFunctionsPLeg
+	GetNumberOfEdgeModesPerNode  : vtkShoeElemGeneric::GetNumberOfEdgeModesPerNodePLeg
+	GetNumberOfFaceModesPerNode  : vtkShoeElemTetrahedron::GetNumberOfFaceModesPerNodePLeg
+	GetNumberOfVolumeModesPerNode: vtkShoeElemTetrahedron::GetNumberOfVolumeModesPerNodePLeg
+	GetPermutedEdgeSigns         : vtkShoeElemTetrahedron::GetPermutedEdgeSignsPLeg
+	GetPermutedFaceIndices       : vtkShoeElemTetrahedron::GetPermutedFaceIndicesPLeg
+
+# ===========================================================================================
+(Hexahedron,*,*)
+	EmbeddingDimension           : 3
+	NumberOfPoints               : 8
+	NumberOfDofNodes             : 19
+	NumberOfFaces                : 6
+	NumberOfEdges                : 12
+	NumberOfBoundaryFacets       : 26
+	CornerParameterCoords        : { { -1., -1., -1. }, {  1., -1., -1. }, {  1.,  1., -1. }, { -1.,  1., -1. }, { -1., -1., 1. }, {  1., -1., 1. }, {  1.,  1., 1. }, { -1.,  1., 1. } }
+	CellSimplices                : { 0, 1, 3, 4,   1, 2, 3, 6,   1, 6, 4, 5,   3, 4, 6, 7,   1, 3, 4, 6 }
+  NumberOfCellSimplices        : 5
+	NumberOfEdgesPerFace         : { 4, 4, 4, 4, 4, 4 }
+	EdgeCornerNodes              : { {0, 1}, {1, 2}, {3, 2}, {0, 3}, {0, 4}, {1, 5}, {2, 6}, {3, 7}, {4, 5}, {5, 6}, {7, 6}, {4, 7} }
+  FaceCornerNodes              : { {0, 1, 2, 3}, {6, 5, 4, 7}, {0, 4, 5, 1}, {6, 7, 3, 2}, {0, 3, 7, 4}, {6, 2, 1, 5} }
+	EdgesOfFaces                 : { {0, 1, 2, 3}, {9, 8, 11, 10}, {4, 8, 5, 0}, {10, 7, 2, 6}, {3, 7, 11, 4}, {6, 1, 5, 9} }
+
+	ParametricCenter             : { 0., 0., 0. }
+
+	Description                  : "Hexahedron (S^p)"
+
+	GetBoundaryEdge              : vtkShoeElemHexahedron::GetBoundaryEdge
+	GetBoundaryFace              : vtkShoeElemHexahedron::GetBoundaryFace
+	FaceNodePermutation          : vtkShoeElemHexahedron::FaceNodePermutation
+	ConcatenateFacePermutations  : vtkShoeElemHexahedron::ConcatenateFacePermutations
+
+(Hexahedron,Legendre,MaxTotalOrder)
+	EvaluateShapeFunctions       : vtkShoeElemHexahedron::EvaluateShapeFunctionsMaxTotalOrder
+	EvaluateShapeFuncDerivatives : vtkShoeElemHexahedron::EvaluateShapeFunctionDerivativesMaxTotalOrder
+	EvaluateNormalOnFace         : vtkShoeElemHexahedron::EvaluateNormalOnFace
+	GetNumberOfShapeFunctions    : vtkShoeElemHexahedron::GetNumberOfShapeFunctionsMaxTotalOrder
+	GetFieldPolynomial           : vtkShoeElemHexahedron::GetFieldPolynomialMaxTotalOrder
+	GetNumberOfEdgeModesPerNode  : vtkShoeElemGeneric::GetNumberOfEdgeModesPerNodePLeg
+	GetNumberOfFaceModesPerNode  : vtkShoeElemHexahedron::GetNumberOfFaceModesPerNodePLeg
+	GetNumberOfVolumeModesPerNode: vtkShoeElemHexahedron::GetNumberOfVolumeModesPerNodePLeg
+	GetPermutedEdgeSigns         : vtkShoeElemHexahedron::GetPermutedEdgeSignsLeg
+	GetPermutedFaceIndices       : vtkShoeElemHexahedron::GetPermutedFaceIndicesPLeg
+	GetCellCriticalPoints        : vtkShoeElemHexahedron::GetCriticalPoints
+	GetPermutedCriticalPoints    : vtkShoeElemHexahedron::GetPermutedCriticalPoints
+	GetTriangulatedIsosurface    : vtkShoeElemHexahedron::GetIsosurface
+	DoCriticalPointsExist        : vtkShoeElemHexahedron::DoCriticalPointsExist
+
+# ===========================================================================================
+(Wedge,*,*)
+	EmbeddingDimension           : 3
+	NumberOfPoints               : 6
+	NumberOfDofNodes             : 15
+	NumberOfFaces                : 5
+	NumberOfEdges                : 9
+	NumberOfBoundaryFacets       : 20
+	CornerParameterCoords        : { { -1., 0., -1. }, {  1., 0., -1. }, {  0., sqrt(3.), -1. }, { -1., 0., 1. }, {  1., 0., 1. }, {  0., sqrt(3.), 1. } }
+	CellSimplices                : { 0, 1, 2, 3,   3, 4, 1, 2,   3, 2, 5, 4 }
+  NumberOfCellSimplices        : 3
+	NumberOfEdgesPerFace         : { 3, 3, 4, 4, 4, 0 }
+	EdgeCornerNodes              : { {0, 1}, {1, 2}, {2, 0}, {0, 3}, {1, 4}, {2, 5}, {3, 4}, {4, 5}, {5, 3} }
+  FaceCornerNodes              : { {0, 1, 2}, {3, 5, 4}, {0, 3, 4, 1}, {1, 4, 5, 2}, {2, 5, 3, 0} }
+	EdgesOfFaces                 : { {0, 1, 2}, {8, 7, 6}, {3, 6, 4, 0}, {4, 7, 5, 1}, {5, 8, 3, 2} }
+
+	ParametricCenter             : { 0., 0.577350269189626, 0. }
+
+	Description                  : "Wedge (S^p)"
+
+# ===========================================================================================
+(Pyramid,*,*)
+	EmbeddingDimension           : 3
+	NumberOfPoints               : 5
+	NumberOfDofNodes             : 14
+	NumberOfFaces                : 5
+	NumberOfEdges                : 8
+	NumberOfBoundaryFacets       : 18
+	CornerParameterCoords        : { { -1., -1., -1. }, {  1., -1., -1. }, {  1.,  1., -1. }, { -1.,  1., -1. }, { 0., 0., sqrt(2.) } }
+	CellSimplices                : { 0, 1, 2, 4,   0, 2, 3, 4 }
+  NumberOfCellSimplices        : 2
+	NumberOfEdgesPerFace         : { 4, 3, 3, 3, 3, 0 }
+	EdgeCornerNodes              : { {0, 1}, {1, 2}, {3, 2}, {0, 3}, {0, 4}, {1, 4}, {2, 4}, {3, 4} }
+  FaceCornerNodes              : { {0, 1, 2, 3}, {0, 4, 1}, {1, 4, 2}, {2, 4, 3}, {3, 4, 0} }
+	EdgesOfFaces                 : { {0, 1, 2, 3}, {4, 5, 0}, {5, 6, 1}, {6, 7, 2}, {7, 4, 3} }
+
+	ParametricCenter             : { 0., 0., 0.47140452079103173 }
+
+	Description                  : "Pyramid (S^p)"
+

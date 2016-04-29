@@ -1,0 +1,40 @@
+-= Sandia Higher Order Elements (SHOE) =-
+
+    Copyright 2012 Sandia Corporation.
+    Under the terms of Contract DE-AC04-94AL85000, there is a non-exclusive
+    license for use of this work by or on behalf of the
+    U.S. Government. Redistribution and use in source and binary forms, with
+    or without modification, are permitted provided that this Notice and any
+    statement of authorship are reproduced on all copies.
+
+Building SHOE
+-------------
+
+At this point, SHOE requires a number of external libraries. Hey, it's research code.
+You will need
+- LAPACK (Linear Algebra PACKage, http://www.netlib.org/lapack/)
+- BLAS (Basic Linear Algebra Subprograms, http://www.netlib.org/blas/)
+- GiNaC (GiNaC Is Not A CAS, http://www.ginac.de/)
+- CLN (Class Library for Numbers, http://www.ginac.de/CLN/)
+- gsl (the GNU Scientific Library, http://sources.redhat.com/gsl/)
+- Qt (http://trolltech.com/)
+
+Some libraries that SHOE needs are included with vtkSNL because of their
+small size and/or relative obscurity:
+- pss (Polynomial System Solver)
+- vtkQt
+
+Optionally, if you want to build the finite element solver (not checked in
+at this point, but coming soon to a CVS archive near you), you'll need
+- Octave (http://www.octave.org/)
+
+NOTE: LAPACK_EXTRA_LIBRARIES should be set (on Linux) to include the
+	FORTRAN math and support libraries. On Red Hat 8.0, this would be
+	LAPACK_EXTRA_LIBRARIES="/usr/lib/libgcc_s.so /usr/lib/libg2c.so.0.0.0"
+
+Grokking SHOE
+-------------
+
+If you *really* want to grok SHOE, read the source. If you're
+the type that likes to RTFM see the technical report in this
+directory named SAND2004-1617.pdf.
