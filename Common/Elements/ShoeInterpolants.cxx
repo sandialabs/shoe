@@ -106,21 +106,21 @@ static void ComputeLagrangeCoefficients( int order, vtkstd::vector< vtkstd::vect
       double fac = 1.;
 
       while ( tmp )
-	{
-	if ( tmp & 1 )
-	  {
-	  ++v;
-	  fac *= ( j < o ? xi[j] : xi[j + 1] );
-	  }
-	tmp >>= 1;
-	++ j;
-	}
+        {
+        if ( tmp & 1 )
+          {
+          ++v;
+          fac *= ( j < o ? xi[j] : xi[j + 1] );
+          }
+        tmp >>= 1;
+        ++ j;
+        }
       fac *= ( v % 2 ? -1 : 1 );
       LC[o][order - v] += fac;
       if ( order - v )
-	{
-	LD[o][order - v - 1] += ( order - v ) * fac;
-	}
+        {
+        LD[o][order - v - 1] += ( order - v ) * fac;
+        }
       }
     }
   
@@ -305,56 +305,56 @@ void ShoeHexahedron::LagrangeTensorShapeFunctions( const int* order, const doubl
 }
 
 #define VTK_LAGRANGE_DERIV(cmt,dder,aa,ab,ac,ba,bb,bc,ca,cb,cc) \
-	VTK_DEBUG_LAGRANGE_PRINT_RST(cmt); \
-	sgnm = sgnm ? ba : 0; \
-	for ( int m = 0; m < aa; ++ m ) \
-	  { \
-	  sgnm *= -1; \
-	  sgnn = sgnn ? bb : 0; \
+        VTK_DEBUG_LAGRANGE_PRINT_RST(cmt); \
+        sgnm = sgnm ? ba : 0; \
+        for ( int m = 0; m < aa; ++ m ) \
+          { \
+          sgnm *= -1; \
+          sgnn = sgnn ? bb : 0; \
           for ( int n = 0; n < ab; ++ n ) \
-	    { \
-	    sgnn *= -1; \
-	    sgnp = sgnp ? bc : 0; \
+            { \
+            sgnn *= -1; \
+            sgnp = sgnp ? bc : 0; \
             for ( int p = 0; p < ac; ++ p ) \
-	      { \
-	      sgnp *= -1; \
-	      VTK_DEBUG_LAGRANGE_PRINT_PWR(ca,cb,cc); \
-	      coef =  norm *  \
-		      (sgnm ? sgnm : 1) * ca[order[0]][ip][m] * \
+              { \
+              sgnp *= -1; \
+              VTK_DEBUG_LAGRANGE_PRINT_PWR(ca,cb,cc); \
+              coef =  norm *  \
+                      (sgnm ? sgnm : 1) * ca[order[0]][ip][m] * \
                       (sgnn ? sgnn : 1) * cb[order[1]][jp][n] * \
-		      (sgnp ? sgnp : 1) * cc[order[2]][kp][p]; \
-	      dder[ p + op1[2] * ( n + op1[1] * m ) ] += coef; \
-	      } \
-	    } \
-	  }
+                      (sgnp ? sgnp : 1) * cc[order[2]][kp][p]; \
+              dder[ p + op1[2] * ( n + op1[1] * m ) ] += coef; \
+              } \
+            } \
+          }
 
 #define VTK_LAGRANGE_DERIVS \
-	VTK_LAGRANGE_DERIV("Dr:",rder,order[0],op1[1],op1[2],sgnM,-sgnN,-sgnP, \
-	  ShoeInterpolants::LagrangeDerivatives,ShoeInterpolants::LagrangeInterpolants,ShoeInterpolants::LagrangeInterpolants);      \
+        VTK_LAGRANGE_DERIV("Dr:",rder,order[0],op1[1],op1[2],sgnM,-sgnN,-sgnP, \
+          ShoeInterpolants::LagrangeDerivatives,ShoeInterpolants::LagrangeInterpolants,ShoeInterpolants::LagrangeInterpolants);      \
                                                                                \
-	VTK_LAGRANGE_DERIV("Ds:",sder,op1[0],order[1],op1[2],-sgnM,sgnN,-sgnP, \
-	  ShoeInterpolants::LagrangeInterpolants,ShoeInterpolants::LagrangeDerivatives,ShoeInterpolants::LagrangeInterpolants);      \
+        VTK_LAGRANGE_DERIV("Ds:",sder,op1[0],order[1],op1[2],-sgnM,sgnN,-sgnP, \
+          ShoeInterpolants::LagrangeInterpolants,ShoeInterpolants::LagrangeDerivatives,ShoeInterpolants::LagrangeInterpolants);      \
                                                                                \
-	VTK_LAGRANGE_DERIV("Dt:",tder,op1[0],op1[1],order[2],-sgnM,-sgnN,sgnP, \
-	  ShoeInterpolants::LagrangeInterpolants,ShoeInterpolants::LagrangeInterpolants,ShoeInterpolants::LagrangeDerivatives)
+        VTK_LAGRANGE_DERIV("Dt:",tder,op1[0],op1[1],order[2],-sgnM,-sgnN,sgnP, \
+          ShoeInterpolants::LagrangeInterpolants,ShoeInterpolants::LagrangeInterpolants,ShoeInterpolants::LagrangeDerivatives)
 
 #ifdef VTK_DEBUG_LAGRANGE_MULTI
 #  define VTK_DEBUG_LAGRANGE_PRINT_PWR(a,b,c) \
-	      vtkstd::cout << "  " << norm << " x "                           \
-			   << "( " << ( sgnm ? sgnm : 1 ) << " ) "            \
-			   << a [order[0]][ip][m]  << " x " \
-			   << "( " << ( sgnn ? sgnn : 1 ) << " ) "            \
-			   << b [order[1]][jp][n] << " x "  \
-			   << "( " << ( sgnp ? sgnp : 1 ) << " ) "            \
-			   << c [order[2]][kp][p]           \
-			   << " X^" << m                                      \
-			   << " Y^" << n                                      \
-			   << " Z^" << p                                      \
-			   << vtkstd::endl
+              vtkstd::cout << "  " << norm << " x "                           \
+                           << "( " << ( sgnm ? sgnm : 1 ) << " ) "            \
+                           << a [order[0]][ip][m]  << " x " \
+                           << "( " << ( sgnn ? sgnn : 1 ) << " ) "            \
+                           << b [order[1]][jp][n] << " x "  \
+                           << "( " << ( sgnp ? sgnp : 1 ) << " ) "            \
+                           << c [order[2]][kp][p]           \
+                           << " X^" << m                                      \
+                           << " Y^" << n                                      \
+                           << " Z^" << p                                      \
+                           << vtkstd::endl
 #  define VTK_DEBUG_LAGRANGE_PRINT_LOOPVAR \
         vtkstd::cout << "At " << i << " " << j << " " << k                            \
-		     << " ( proper: " << ip << " " << jp << " " << kp << " )"         \
-		     << " ( signs: " << sgnM << " " << sgnN << " " << sgnP << " ):\n";
+                     << " ( proper: " << ip << " " << jp << " " << kp << " )"         \
+                     << " ( signs: " << sgnM << " " << sgnN << " " << sgnP << " ):\n";
 #  define VTK_DEBUG_LAGRANGE_PRINT_RST(x) vtkstd::cout << x "\n"
 #else // VTK_DEBUG_LAGRANGE_MULTI
 #  define VTK_DEBUG_LAGRANGE_PRINT_PWR(a,b,c)
@@ -666,34 +666,34 @@ void ShoeHexahedron::SymbolicLagrangeFieldGradient( const int* order, const doub
     for ( j=1; j<order[1]; ++j )
       {
       if ( j  > sz[1] )
- 	{
+        {
         jp = order[1] - j;
- 	sgnN = order[1] % 2 ? -1 : 1;
-	sgnn = 1;
- 	}
+        sgnN = order[1] % 2 ? -1 : 1;
+        sgnn = 1;
+        }
       else
- 	{
-	jp = j;
-	sgnN = 1;
- 	sgnn = 0;
- 	}
+        {
+        jp = j;
+        sgnN = 1;
+        sgnn = 0;
+        }
 
       // Face 0-4-7-3
       sgnM = 1;
       sgnm = 0;
       norm = phi_e[sn++] * sgnN * sgnP *
-	ShoeInterpolants::LagrangeNormalizationFactors[order[0]][0] *
-	ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp] *
-	ShoeInterpolants::LagrangeNormalizationFactors[order[2]][kp];
+        ShoeInterpolants::LagrangeNormalizationFactors[order[0]][0] *
+        ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp] *
+        ShoeInterpolants::LagrangeNormalizationFactors[order[2]][kp];
       VTK_LAGRANGE_DERIVS;
       
       // Face 1-2-6-5
       sgnM = order[0] % 2 ? -1 : 1;
       sgnm = 1;
       norm = phi_e[sn1++] * sgnM * sgnN * sgnP *
-	ShoeInterpolants::LagrangeNormalizationFactors[order[0]][0] *
-	ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp] *
-	ShoeInterpolants::LagrangeNormalizationFactors[order[2]][kp];
+        ShoeInterpolants::LagrangeNormalizationFactors[order[0]][0] *
+        ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp] *
+        ShoeInterpolants::LagrangeNormalizationFactors[order[2]][kp];
       VTK_LAGRANGE_DERIVS;
       }
     jp = 0;
@@ -701,34 +701,34 @@ void ShoeHexahedron::SymbolicLagrangeFieldGradient( const int* order, const doub
     for ( i=1; i<order[0]; ++i )
       {
       if ( i  > sz[0] )
- 	{
+        {
         ip = order[0] - i;
- 	sgnM = order[0] % 2 ? -1 : 1;
-	sgnm = 1;
- 	}
+        sgnM = order[0] % 2 ? -1 : 1;
+        sgnm = 1;
+        }
       else
- 	{
-	ip = i;
-	sgnM = 1;
- 	sgnm = 0;
- 	}
+        {
+        ip = i;
+        sgnM = 1;
+        sgnm = 0;
+        }
 
       // Face 0-1-5-4
       sgnN = 1;
       sgnn = 0;
       norm = phi_e[sn2++] * sgnM * sgnP *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip] *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[1]][0] *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[2]][kp];
+          ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip] *
+          ShoeInterpolants::LagrangeNormalizationFactors[order[1]][0] *
+          ShoeInterpolants::LagrangeNormalizationFactors[order[2]][kp];
       VTK_LAGRANGE_DERIVS;
 
       // Face 2-3-7-6
       sgnN = order[1] % 2 ? -1 : 1;
       sgnn = 1;
       norm = phi_e[sn3++] * sgnM * sgnN * sgnP *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip] *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[1]][0] *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[2]][kp];
+          ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip] *
+          ShoeInterpolants::LagrangeNormalizationFactors[order[1]][0] *
+          ShoeInterpolants::LagrangeNormalizationFactors[order[2]][kp];
       VTK_LAGRANGE_DERIVS;
       }
     ip = 0;
@@ -754,34 +754,34 @@ void ShoeHexahedron::SymbolicLagrangeFieldGradient( const int* order, const doub
     for ( i=1; i<order[0]; ++i )
       {
       if ( i  > sz[0] )
- 	{
+        {
         ip = order[0] - i;
- 	sgnM = order[0] % 2 ? -1 : 1;
-	sgnm = 1;
- 	}
+        sgnM = order[0] % 2 ? -1 : 1;
+        sgnm = 1;
+        }
       else
- 	{
-	ip = i;
-	sgnM = 1;
- 	sgnm = 0;
- 	}
+        {
+        ip = i;
+        sgnM = 1;
+        sgnm = 0;
+        }
 
       // Face 0-1-2-3
       sgnP = 1;
       sgnp = 0;
       norm = phi_e[sn++] * sgnM * sgnN *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip] *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp] *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[2]][0];
+          ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip] *
+          ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp] *
+          ShoeInterpolants::LagrangeNormalizationFactors[order[2]][0];
       VTK_LAGRANGE_DERIVS;
 
       // Face 4-7-6-5
       sgnP = order[2] % 2 ? -1 : 1;
       sgnp = 1;
       norm = phi_e[sn1++] * sgnM * sgnN * sgnP *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip] *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp] *
- 	  ShoeInterpolants::LagrangeNormalizationFactors[order[2]][0];
+          ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip] *
+          ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp] *
+          ShoeInterpolants::LagrangeNormalizationFactors[order[2]][0];
       VTK_LAGRANGE_DERIVS;
       }
     }
@@ -809,42 +809,42 @@ void ShoeHexahedron::SymbolicLagrangeFieldGradient( const int* order, const doub
     for ( j = 1; j < order[1]; ++j )
       {
       if ( j  > sz[1] )
-	{
+        {
         jp = order[1] - j;
-	sgnN = order[1] % 2 ? -1 : 1;
+        sgnN = order[1] % 2 ? -1 : 1;
         sgnn = 1;
-	}
+        }
       else
-	{
+        {
         jp = j;
         sgnN = 1;
-	sgnn = 0;
-	}
+        sgnn = 0;
+        }
 
       prenorm = sgnP * ShoeInterpolants::LagrangeNormalizationFactors[order[2]][kp] *
-	        sgnN * ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp];
+                sgnN * ShoeInterpolants::LagrangeNormalizationFactors[order[1]][jp];
 
       for ( i = 1; i < order[0]; ++i )
-	{
-	if ( i  > sz[0] )
-	  {
-	  ip = order[0] - i;
-	  sgnM = order[0] % 2 ? -1 : 1;
-	  sgnm = 1;
-	  }
-	else
-	  {
-	  ip = i;
-	  sgnM = 1;
-	  sgnm = 0;
-	  }
+        {
+        if ( i  > sz[0] )
+          {
+          ip = order[0] - i;
+          sgnM = order[0] % 2 ? -1 : 1;
+          sgnm = 1;
+          }
+        else
+          {
+          ip = i;
+          sgnM = 1;
+          sgnm = 0;
+          }
 
-	VTK_DEBUG_LAGRANGE_PRINT_LOOPVAR;
+        VTK_DEBUG_LAGRANGE_PRINT_LOOPVAR;
 
-	norm = prenorm * sgnM * phi_e[sn++] *
-	  ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip];
+        norm = prenorm * sgnM * phi_e[sn++] *
+          ShoeInterpolants::LagrangeNormalizationFactors[order[0]][ip];
 
-	VTK_LAGRANGE_DERIVS;
+        VTK_LAGRANGE_DERIVS;
 
         } // i loop
       } // j loop
@@ -866,11 +866,11 @@ void ShoeHexahedron::SymbolicLagrangeFieldGradient( const int* order, const doub
       m = q / op1[1];
 
       if ( rder[i] )
-	grad->InsertMonomial( eqn[0], rder[i], 3, 'r', m, 's', n, 't', p );
+        grad->InsertMonomial( eqn[0], rder[i], 3, 'r', m, 's', n, 't', p );
       if ( sder[i] )
-	grad->InsertMonomial( eqn[1], sder[i], 3, 'r', m, 's', n, 't', p );
+        grad->InsertMonomial( eqn[1], sder[i], 3, 'r', m, 's', n, 't', p );
       if ( tder[i] )
-	grad->InsertMonomial( eqn[2], tder[i], 3, 'r', m, 's', n, 't', p );
+        grad->InsertMonomial( eqn[2], tder[i], 3, 'r', m, 's', n, 't', p );
     }
 
   delete [] rder;
